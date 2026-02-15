@@ -3,7 +3,7 @@ services:
   - type: web
     name: event-management-backend
     env: node
-    root: server
+    rootDir: server
     buildCommand: npm install
     startCommand: npm start
     envVars:
@@ -19,7 +19,7 @@ services:
   - type: web
     name: event-management-frontend
     env: static
-    root: client
+    rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
