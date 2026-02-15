@@ -27,5 +27,5 @@ services:
         fromService:
           type: web
           name: event-management-backend
-          property: url
+          property: host
     autoDeploy: false
