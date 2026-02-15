@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import EventCard from '../components/events/EventCard';
 import { Filter, MapPin, Calendar as CalendarIcon, Search, X } from 'lucide-react';
 import './Home.css';
@@ -26,7 +26,7 @@ const Home = () => {
     const fetchEvents = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/events`, { params: filters });
+            const { data } = await api.get('/api/events', { params: filters });
             setEvents(data.events);
             setPagination({ page: data.page, pages: data.pages });
         } catch (error) {

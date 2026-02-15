@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { Calendar, Clock, MapPin, XCircle, ChevronRight } from 'lucide-react';
 import './Dashboard.css';
 
@@ -18,7 +18,7 @@ const Dashboard = () => {
 
     const fetchRegistrations = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/registrations/my-registrations`, {
+            const { data } = await api.get('/api/registrations/my-registrations', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setRegistrations(data);
@@ -32,7 +32,7 @@ const Dashboard = () => {
     const handleCancel = async (eventId) => {
         if (!window.confirm('Are you sure you want to cancel this registration?')) return;
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/registrations/cancel`,
+            await api.post('/api/registrations/cancel',
                 { eventId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

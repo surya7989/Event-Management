@@ -13,7 +13,7 @@ services:
         sync: false
       - key: PORT
         value: 10000
-    autoDeploy: false
+    autoDeploy: true
 
   # Frontend Service
   - type: web
@@ -28,4 +28,4 @@ services:
           type: web
           name: event-management-backend
           property: host
-    autoDeploy: false
+    autoDeploy: true

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { Mail, Lock, Calendar, ArrowRight } from 'lucide-react';
 import './Auth.css';
 
@@ -31,7 +31,7 @@ const Login = () => {
         setError('');
         setLoading(true);
         try {
-            const { data } = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/login`, formData);
+            const { data } = await api.post('/api/auth/login', formData);
             localStorage.setItem('user', JSON.stringify(data.user));
             localStorage.setItem('token', data.token);
             navigate('/');

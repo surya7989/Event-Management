@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { Calendar, MapPin, Users, Tag, ArrowLeft, CheckCircle } from 'lucide-react';
 import './EventDetails.css';
 
@@ -21,7 +21,7 @@ const EventDetails = () => {
 
     const fetchEvent = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/events/${id}`);
+            const { data } = await api.get(`/api/events/${id}`);
             setEvent(data);
         } catch (error) {
             console.error('Error fetching event:', error);
@@ -32,7 +32,7 @@ const EventDetails = () => {
 
     const checkRegistration = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/registrations/my-registrations`, {
+            const { data } = await api.get('/api/registrations/my-registrations', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const registered = data.some(reg => reg.event._id === id && reg.status === 'Registered');
@@ -48,7 +48,7 @@ const EventDetails = () => {
         setRegistering(true);
         try {
             const endpoint = isRegistered ? 'cancel' : 'register';
-            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/registrations/${endpoint}`,
+            await api.post(`/api/registrations/${endpoint}`,
                 { eventId: id },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
