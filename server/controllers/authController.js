@@ -12,6 +12,7 @@ const register = async (req, res) => {
 
         res.status(201).json({ user: { id: user._id, name, email }, token });
     } catch (error) {
+        console.error('Registration Error:', error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -27,6 +28,7 @@ const login = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
         res.json({ user: { id: user._id, name: user.name, email }, token });
     } catch (error) {
+        console.error('Login Error:', error);
         res.status(500).json({ message: error.message });
     }
 };
