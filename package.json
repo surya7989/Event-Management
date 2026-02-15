@@ -1,0 +1,9 @@
+{
+    "name": "event-management-root",
+    "version": "1.0.0",
+    "scripts": {
+        "server": "cd server && npm start",
+        "client": "cd client && npm run dev",
+        "dev": "npx concurrently \"npm run server\" \"npm run client\""
+    }
+}
