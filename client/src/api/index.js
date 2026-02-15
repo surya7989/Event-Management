@@ -9,6 +9,7 @@ const getBaseUrl = () => {
     if (url.endsWith('/')) {
         url = url.slice(0, -1);
     }
+    console.log('API Base URL:', url);
     return url;
 };
 
