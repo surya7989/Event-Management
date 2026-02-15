@@ -8,7 +8,10 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: '*', // Allow all origins for now to fix connection issues
+    credentials: true
+}));
 app.use(express.json());
 
 // Routes
