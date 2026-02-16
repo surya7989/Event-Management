@@ -9,6 +9,7 @@ const Home = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [pagination, setPagination] = useState({ page: 1, pages: 1 });
 
     const filters = {
@@ -31,6 +32,7 @@ const Home = () => {
             setPagination({ page: data.page, pages: data.pages });
         } catch (error) {
             console.error('Error fetching events:', error);
+            setError(error.message || 'Failed to connect to the server.');
         } finally {
             setTimeout(() => setLoading(false), 500);
         }
@@ -71,6 +73,13 @@ const Home = () => {
             </section>
 
             <div className="container main-content">
+                {error && (
+                    <div style={{ backgroundColor: '#fee2e2', color: '#dc2626', padding: '1rem', marginBottom: '1rem', borderRadius: '0.5rem', border: '1px solid #ef4444' }}>
+                        <strong>Connection Error:</strong> {error}
+                        <br />
+                        <small>Please reload the page. If the problem persists, the backend might be restarting.</small>
+                    </div>
+                )}
                 <aside className="filters-bar card">
                     <div className="filter-header">
                         <h3>Filters</h3>

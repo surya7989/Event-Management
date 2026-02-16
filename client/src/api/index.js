@@ -1,27 +1,14 @@
+```javascript
 import axios from 'axios';
 
 const getBaseUrl = () => {
-    let url = import.meta.env.VITE_API_URL;
-
-    // Explicit fallback for when env var is missing in production
-    if (!url) {
-        if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-            url = 'http://localhost:5000';
-        } else {
-            url = 'https://event-management-backend-35ee.onrender.com';
-        }
+    // Force production backend URL when running on deployed frontend
+    if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
+        return 'https://event-management-backend-35ee.onrender.com';
     }
-
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        url = `https://${url}`;
-    }
-
-    if (url.endsWith('/')) {
-        url = url.slice(0, -1);
-    }
-
-    console.log('API Base URL:', url);
-    return url;
+    
+    // Default for local development
+    return 'http://localhost:5000';
 };
 
 const api = axios.create({
@@ -35,7 +22,7 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${ token } `;
     }
     return config;
 });
