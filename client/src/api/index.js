@@ -1,4 +1,3 @@
-```javascript
 import axios from 'axios';
 
 const getBaseUrl = () => {
@@ -6,7 +5,7 @@ const getBaseUrl = () => {
     if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
         return 'https://event-management-backend-35ee.onrender.com';
     }
-    
+
     // Default for local development
     return 'http://localhost:5000';
 };
@@ -22,7 +21,7 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
-        config.headers.Authorization = `Bearer ${ token } `;
+        config.headers.Authorization = `Bearer ${token} `;
     }
     return config;
 });
